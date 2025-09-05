@@ -1,0 +1,39 @@
+<project name="Minimarket" default="run" basedir=".">
+    <description>
+        JAVA Minimarket
+    </description>
+
+    <property name="src.dir" location="src"/>
+    <property name="build.dir" location="build"/>
+    <property name="main-class" value="minimarket.Minimarket"/>
+
+    <!-- Tarea para inicializar directorios -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <!-- Tarea para compilar el codigo fuente -->
+    <target name="compile" depends="init" description="Compila el codigo fuente">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false"/>
+    </target>
+
+    <!-- Tarea para crear un archivo JAR ejecutable -->
+    <target name="jar" depends="compile" description="Crea un archivo JAR ejecutable">
+        <jar destfile="${build.dir}/minimarket-app.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Tarea para ejecutar la aplicacion -->
+    <target name="run" depends="jar" description="Ejecuta la aplicacion">
+        <java jar="${build.dir}/minimarket-app.jar" fork="true"/>
+    </target>
+
+    <!-- Tarea para limpiar los archivos compilados -->
+    <target name="clean" description="Limpia los archivos compilados">
+        <delete dir="${build.dir}"/>
+    </target>
+
+</project>
