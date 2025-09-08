@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
+import java.nio.charset.StandardCharsets;
+import java.io.PrintStream;
 
 public class Minimarket {
     private static final List<Producto> productos = new ArrayList<>();
@@ -15,6 +17,18 @@ public class Minimarket {
     private static int nextVentaId = 1;
     
     public static void main(String[] args) {
+        // Configurar UTF-8 para caracteres especiales
+        try {
+            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+            System.setProperty("file.encoding", "UTF-8");
+            System.setProperty("console.encoding", "UTF-8");
+        } catch (Exception e) {
+            // Si hay problemas con UTF-8, continuar sin configuración especial
+            System.out.println("Nota: Algunos caracteres especiales podrian no mostrarse correctamente en esta consola.");
+        }
+        
+        inicializarDatosPredeterminados();
+        
         int opcion;
         do {
             mostrarMenu();
@@ -197,6 +211,27 @@ public class Minimarket {
                 System.out.println(venta);
             }
         }
+    }
+
+    private static void inicializarDatosPredeterminados() {
+        // Inicializar clientes predeterminados
+        clientes.add(new Cliente(nextClienteId++, "Ricardo"));
+        clientes.add(new Cliente(nextClienteId++, "Carlos"));
+        
+        // Inicializar productos predeterminados
+        productos.add(new Producto(nextProductoId++, "Agua Mineral", 1.50, 50));
+        productos.add(new Producto(nextProductoId++, "Coca-Cola", 2.20, 30));
+        productos.add(new Producto(nextProductoId++, "Pepsi", 2.10, 25));
+        productos.add(new Producto(nextProductoId++, "Fanta", 2.00, 20));
+        productos.add(new Producto(nextProductoId++, "Vino Tinto", 8.50, 15));
+        productos.add(new Producto(nextProductoId++, "Vino Blanco", 8.00, 12));
+        productos.add(new Producto(nextProductoId++, "Whisky", 25.00, 8));
+        productos.add(new Producto(nextProductoId++, "Vodka", 18.50, 10));
+        productos.add(new Producto(nextProductoId++, "Cerveza", 3.50, 40));
+        productos.add(new Producto(nextProductoId++, "Ron", 15.00, 6));
+        
+        System.out.println("¡Datos predeterminados cargados exitosamente!");
+        System.out.println("Clientes: " + clientes.size() + " | Productos: " + productos.size());
     }
 
     private static void imprimirVoucher(Venta venta) {

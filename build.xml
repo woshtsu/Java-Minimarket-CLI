@@ -14,7 +14,7 @@
 
     <!-- Tarea para compilar el codigo fuente -->
     <target name="compile" depends="init" description="Compila el codigo fuente">
-        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" encoding="UTF-8"/>
     </target>
 
     <!-- Tarea para crear un archivo JAR ejecutable -->
@@ -29,7 +29,9 @@
 
     <!-- Tarea para ejecutar la aplicacion -->
     <target name="run" depends="jar" description="Ejecuta la aplicacion">
-        <java jar="${build.dir}/minimarket-app.jar" fork="true"/>
+        <java jar="${build.dir}/minimarket-app.jar" fork="true">
+            <sysproperty key="file.encoding" value="UTF-8"/>
+        </java>
     </target>
 
     <!-- Tarea para limpiar los archivos compilados -->
