@@ -6,12 +6,14 @@ public class Producto {
     private String nombre;
     private double precio;
     private int stock;
+    private Categoria categoria;
 
-    public Producto(int id, String nombre, double precio, int stock) {
+    public Producto(int id, String nombre, double precio, int stock, Categoria categoria) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+        this.categoria = categoria;
     }
 
     // Getters
@@ -31,6 +33,10 @@ public class Producto {
         return stock;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
     // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -44,6 +50,10 @@ public class Producto {
         this.stock = stock;
     }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public String toString() {
         return "Producto{" +
@@ -51,6 +61,7 @@ public class Producto {
                ", nombre='" + nombre + '\'' +
                ", precio=" + precio +
                ", stock=" + stock +
+               ", categoria=" + categoria +
                '}';
     }
 }
