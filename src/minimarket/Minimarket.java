@@ -3,6 +3,7 @@ package minimarket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
 
 public class Minimarket {
     private static final List<Producto> productos = new ArrayList<>();
@@ -181,6 +182,7 @@ public class Minimarket {
             Venta nuevaVenta = new Venta(nextVentaId++, clienteEncontrado, productosSeleccionados);
             ventas.add(nuevaVenta);
             System.out.println("¡Venta registrada exitosamente! Monto total: $" + nuevaVenta.getMontoTotal());
+            imprimirVoucher(nuevaVenta);
         } else {
             System.out.println("No se anadieron productos. Venta cancelada.");
         }
@@ -195,5 +197,29 @@ public class Minimarket {
                 System.out.println(venta);
             }
         }
+    }
+
+    private static void imprimirVoucher(Venta venta) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String fechaHora = formatter.format(venta.getFecha());
+        
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("           VOUCHER DE VENTA");
+        System.out.println("=".repeat(50));
+        System.out.println("ID de Venta: " + venta.getId());
+        System.out.println("Cliente: " + venta.getCliente().getNombre());
+        System.out.println("Fecha y Hora: " + fechaHora);
+        System.out.println("-".repeat(50));
+        System.out.println("PRODUCTOS:");
+        
+        for (Producto producto : venta.getProductos()) {
+            System.out.printf("• %-20s $%.2f%n", producto.getNombre(), producto.getPrecio());
+        }
+        
+        System.out.println("-".repeat(50));
+        System.out.printf("TOTAL: $%.2f%n", venta.getMontoTotal());
+        System.out.println("=".repeat(50));
+        System.out.println("¡Gracias por su compra!");
+        System.out.println("=".repeat(50) + "\n");
     }
 }
